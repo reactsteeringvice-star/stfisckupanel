@@ -1,5 +1,5 @@
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const CFG=window.REACT_CONFIG||{},sb=CFG.url&&window.supabase?supabase.createClient(CFG.url,CFG.key):null,LS='react_forum_v1';
+const CFG=window.REACT_CONFIG||{},sb=CFG.url&&window.supabase?supabase.createClient(new URL(CFG.url.trim()).origin,CFG.key.trim()):null,LS='react_forum_v1';
 const ADMIN={email:'mohammed@react-forum.app',h:'240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9',name:'Mohammed',role:'admin',comp:null};
 const accs=a=>{a=a||[];return a.some(x=>x.email==ADMIN.email)?a:[ADMIN,...a.filter(x=>x.email!='admin@react.local')]};
 const uemail=u=>(u=u.trim().toLowerCase()).includes('@')?u:u+'@react-forum.app',sha=async s=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)))].map(b=>b.toString(16).padStart(2,'0')).join('');
